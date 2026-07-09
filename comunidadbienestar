@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CREO: entrenamos comunidades que hacen crecer el bienestar infantil conectando familia, escuela, deporte, salud y comunidad." />
+  <title>CREO | Bienestar Infantil Comunitario</title>
+  <style>
+    :root {
+      --azul-petroleo: #1f4e5f;
+      --azul-oscuro: #173944;
+
+      --verde-salvia: #839788;
+      --arena: #e8ddc7;
+      --blanco-roto: #fafaf8;
+      --naranja-suave: #e69057;
+      --texto: #263238;
+      --gris-suave: #f1f1ed;
+      --borde: rgba(31, 78, 95, 0.12);
+      --sombra: 0 18px 48px rgba(23, 57, 68, 0.10);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--blanco-roto);
+      color: var(--texto);
+      line-height: 1.7;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .skip-link {
+      position: absolute; left: -999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+    }
+    .skip-link:focus {
+      left: 16px; top: 16px; width: auto; height: auto; z-index: 9999;
+      background: white; padding: 10px 14px; border-radius: 14px; color: var(--azul-petroleo);
+    }
+
+    header {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      background: rgba(250, 250, 248, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .nav {
+      max-width: 1200px; margin: auto; padding: 16px 24px;
+      display: flex; justify-content: space-between; align-items: center; gap: 22px;
+    }
+    .logo {
+      font-size: 1.65rem; font-weight: 900; color: var(--azul-petroleo); letter-spacing: 1px;
+    }
+    .menu { display: flex; gap: 24px; font-size: 0.95rem; color: var(--azul-petroleo); font-weight: 700; }
+    .menu a:hover { color: var(--naranja-suave); }
+    .mobile-note{display:none;color:var(--azul-petroleo);font-weight:700;font-size:.9rem;}
+
+    .hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(90deg, rgba(31,78,95,0.74), rgba(31,78,95,0.38)),
+        url("https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=1800&q=80");
+      background-size: cover; background-position: center;
+      color: white; display: flex; align-items: center; padding: 130px 24px 90px;
+    }
+    .hero-content { max-width: 1200px; margin: auto; width: 100%; }
+    .hero-text { max-width: 760px; }
+    .eyebrow { display: inline-block; margin-bottom: 22px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.18); font-weight: 700; }
+    .hero h1 { font-size: clamp(4.5rem, 10vw, 8.5rem); line-height: .9; margin-bottom: 24px; letter-spacing: 4px; }
+    .hero h2 { font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.12; font-weight: 800; margin-bottom: 26px; }
+    .hero p { font-size: 1.22rem; max-width: 650px; margin-bottom: 36px; color: rgba(255,255,255,.94); }
+
+    .button {
+      display: inline-flex; align-items:center; justify-content:center; gap:8px;
+      background: var(--naranja-suave); color: white; padding: 15px 28px;
+      border-radius: 999px; font-weight: 800; transition: all .25s ease;
+      box-shadow: 0 12px 30px rgba(0,0,0,.14);
+    }
+    .button:hover { background: #cf7843; transform: translateY(-2px); }
+    .button.secondary { background: rgba(255,255,255,.10); border: 2px solid rgba(255,255,255,.85); margin-left: 12px; }
+    .button.secondary:hover { background: white; color: var(--azul-petroleo); }
+    .button.dark { background: var(--azul-petroleo); }
+    .button.dark:hover { background: var(--azul-oscuro); }
+
+    section { padding: 100px 24px; scroll-margin-top: 82px; }
+    .container { max-width: 1200px; margin: auto; }
+    .section-title { font-size: clamp(2.15rem, 4vw, 4rem); line-height: 1.13; color: var(--azul-petroleo); margin-bottom: 26px; letter-spacing:-.02em; }
+    .section-subtitle { font-size: 1.18rem; max-width: 800px; color: #4a4a4a; margin-bottom: 44px; }
+    .center { text-align: center; }
+    .center .section-subtitle { margin-left: auto; margin-right: auto; }
+
+    .reto { background: white; }
+    .reto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 68px; align-items: center; }
+    .lead { font-size: 1.45rem; color: var(--azul-petroleo); font-weight: 800; line-height: 1.35; margin-bottom: 22px; }
+    .infografia { background: var(--blanco-roto); border: 1px solid var(--borde); border-radius: 34px; padding: 42px; box-shadow: var(--sombra); text-align: center; }
+    .info-item { font-size: 1.35rem; font-weight: 850; color: var(--azul-petroleo); margin: 14px 0; }
+    .heart { color: var(--naranja-suave); font-size: 1.75rem; }
+    .arrow { font-size: 2.5rem; color: var(--verde-salvia); margin: 14px 0; }
+    .bienestar-box { background: var(--azul-petroleo); color: white; padding: 22px; border-radius: 24px; font-size: 1.45rem; font-weight: 900; }
+
+    .vision { background: var(--arena); }
+    .vision-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 34px; }
+    .vision-item { background: rgba(255,255,255,0.68); padding: 28px; border-radius: 28px; font-size: 1.08rem; border: 1px solid rgba(255,255,255,.55); }
+    .check { color: var(--verde-salvia); font-weight: 900; margin-right: 8px; }
+
+    .modelo-accion { background: var(--blanco-roto); }
+    .three-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 44px; }
+    .card { background: white; border-radius: 32px; padding: 36px; box-shadow: var(--sombra); border: 1px solid var(--borde); transition: all .25s ease; }
+    .card:hover { transform: translateY(-5px); }
+    .card-icon { width: 62px; height: 62px; background: var(--arena); border-radius: 50%; display:flex; align-items:center; justify-content:center; margin-bottom: 24px; font-size: 1.75rem; }
+    .card h3 { color: var(--azul-petroleo); font-size: 1.52rem; margin-bottom: 12px; }
+
+    .escenarios { background: white; }
+    .circle-layout { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; align-items: center; margin-top: 48px; }
+    .scenario { background: var(--gris-suave); padding: 28px; border-radius: 28px; min-height: 245px; border: 1px solid rgba(0,0,0,.03); }
+    .scenario h3 { color: var(--azul-petroleo); margin-bottom: 14px; font-size: 1.3rem; }
+    .scenario ul { list-style: none; }
+    .scenario li { margin-bottom: 8px; }
+    .center-circle { background: var(--azul-petroleo); color: white; border-radius: 50%; aspect-ratio: 1/1; display:flex; align-items:center; justify-content:center; text-align:center; padding: 28px; font-size: 1.32rem; font-weight: 900; box-shadow: 0 20px 45px rgba(31,78,95,.26); }
+
+    .modelo { background: var(--verde-salvia); color: white; }
+    .modelo .section-title, .modelo .section-subtitle { color: white; }
+    .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; margin-top: 48px; }
+    .step { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); border-radius: 28px; padding: 30px 20px; text-align:center; }
+    .step-number { font-size: 2rem; margin-bottom: 14px; }
+    .step h3 { font-size: 1.18rem; margin-bottom: 10px; }
+
+    .impacto { background: white; }
+    .impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    .impact-item { background: var(--blanco-roto); padding: 30px; border-radius: 28px; font-size: 1.12rem; font-weight: 800; color: var(--azul-petroleo); border: 1px solid var(--borde); }
+    .impact-icon { font-size: 2rem; margin-bottom: 12px; }
+
+    .participar { background: var(--arena); }
+    .participants { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; margin-top: 44px; }
+    .participant { background: white; border-radius: 26px; padding: 26px 16px; text-align:center; font-weight: 800; color: var(--azul-petroleo); }
+    .participant span { display:block; font-size: 2rem; margin-bottom: 10px; }
+
+    .recursos { background: white; }
+    .resource-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    .resource-card { border: 1px solid #e4e0d8; border-radius: 30px; padding: 34px; background: var(--blanco-roto); text-align:left; }
+    .resource-card h3 { color: var(--azul-petroleo); margin-bottom: 10px; }
+
+    .comunidad { background: var(--blanco-roto); }
+    .map-box { background: linear-gradient(rgba(31,78,95,.08),rgba(31,78,95,.08)), var(--arena); border-radius: 36px; padding: 68px 30px; margin-top: 48px; text-align:center; }
+    .map-placeholder { font-size: 6rem; margin-bottom: 14px; }
+    .map-box h3 { color: var(--azul-petroleo); font-size: 1.6rem; margin-bottom: 10px; }
+    .map-tags { display:flex; justify-content:center; flex-wrap:wrap; gap: 14px; margin: 28px 0 34px; }
+    .tag { background: white; color: var(--azul-petroleo); padding: 10px 18px; border-radius: 999px; font-weight: 800; }
+
+    .manifiesto { background: var(--azul-petroleo); color: white; text-align: center; }
+    .manifiesto h2 { font-size: clamp(2.15rem, 5vw, 4.35rem); line-height: 1.16; max-width: 1000px; margin: auto auto 34px; }
+    .manifiesto p { max-width: 830px; margin: auto; font-size: 1.25rem; color: rgba(255,255,255,.9); }
+
+    .equipo { background: var(--blanco-roto); }
+    .equipo .card { max-width: 800px; margin: auto; text-align:left; }
+
+    .cta-final { background: white; text-align:center; }
+    .cta-final h2 { color: var(--azul-petroleo); font-size: clamp(2.05rem, 4vw, 3.75rem); max-width: 900px; margin: auto auto 34px; line-height: 1.2; }
+
+    footer { background: #172f39; color: white; padding: 50px 24px; }
+    .footer-content { max-width: 1200px; margin: auto; display:flex; justify-content:space-between; gap: 30px; flex-wrap:wrap; }
+    .footer-logo { font-size: 2rem; font-weight: 900; margin-bottom: 10px; }
+    .footer-links { display:flex; flex-wrap:wrap; gap: 18px; color: rgba(255,255,255,.78); }
+    .footer-links a:hover { color: white; }
+
+    @media (max-width: 980px) {
+      .menu { display: none; }
+      .mobile-note { display: block; }
+      .reto-grid, .vision-list, .three-cards, .impact-grid, .resource-grid { grid-template-columns: 1fr; }
+      .circle-layout { grid-template-columns: 1fr; }
+      .center-circle { border-radius: 32px; aspect-ratio: auto; min-height: 150px; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .participants { grid-template-columns: 1fr 1fr; }
+      section { padding: 82px 22px; }
+      .hero { min-height: 94vh; }
+      .button.secondary { margin-left: 0; margin-top: 14px; }
+    }
+    @media (max-width: 600px) {
+      .steps, .participants { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 4.25rem; }
+      .hero h2 { font-size: 2rem; }
+      .hero p { font-size: 1.08rem; }
+      .nav { padding: 14px 20px; }
+      .infografia { padding: 30px 20px; }
+      .map-placeholder { font-size: 4.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+  <header>
+    <nav class="nav" aria-label="Menú principal">
+      <a class="logo" href="#inicio" aria-label="CREO inicio">CREO</a>
+      <div class="menu">
+        <a href="#inicio">Inicio</a>
+        <a href="#modelo">Modelo</a>
+        <a href="#impacto">Impacto</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#comunidad">Comunidad</a>
+        <a href="#equipo">Equipo</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div class="mobile-note">Bienestar infantil</div>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <div class="hero-text">
+          <span class="eyebrow">Red de comunidades para el bienestar infantil</span>
+          <h1>CREO</h1>
+          <h2>Entrenamos comunidades que hacen crecer el bienestar infantil.</h2>
+          <p>Conectamos familia, escuela, deporte, salud y comunidad para que cada niño crezca acompañado por adultos que comparten mirada, lenguaje y propósito.</p>
+          <a class="button" href="#modelo">Descubre el modelo</a>
+          <a class="button secondary" href="#contacto">Contactar</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="reto" id="reto">
+      <div class="container reto-grid">
+        <div>
+          <h2 class="section-title">El reto</h2>
+          <p class="lead">Los niños no necesitan más programas.<br>Necesitan comunidades que crean en ellos.</p>
+          <p>Hoy la salud, la escuela, la familia y el deporte trabajan muchas veces por separado. Nuestro reto es conectarlos para construir entornos coherentes, preventivos y capaces de acompañar el desarrollo infantil.</p>
+        </div>
+        <div class="infografia" aria-label="Infografía familia, escuela, deporte y salud hacia bienestar infantil">
+          <div class="info-item">Familia</div><div class="heart">❤️</div>
+          <div class="info-item">Escuela</div><div class="heart">❤️</div>
+          <div class="info-item">Deporte</div><div class="heart">❤️</div>
+          <div class="info-item">Salud</div><div class="arrow">↓</div>
+          <div class="bienestar-box">Bienestar infantil</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vision" id="vision">
+      <div class="container">
+        <h2 class="section-title">Nuestra visión</h2>
+        <p class="section-subtitle">Imagina una comunidad donde todos los adultos que rodean a un niño comparten lenguaje, mirada y propósito.</p>
+        <div class="vision-list">
+          <div class="vision-item"><span class="check">✔</span>La escuela habla el mismo lenguaje emocional que las familias.</div>
+          <div class="vision-item"><span class="check">✔</span>El deporte también educa en bienestar.</div>
+          <div class="vision-item"><span class="check">✔</span>Cada adulto sabe cómo acompañar a un niño.</div>
+          <div class="vision-item"><span class="check">✔</span>La prevención llega antes que el problema.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="modelo-accion">
+      <div class="container center">
+        <h2 class="section-title">No hacemos un programa.</h2>
+        <p class="section-subtitle">Creamos un modelo que activa, conecta y transforma comunidades desde dentro.</p>
+        <div class="three-cards">
+          <article class="card"><div class="card-icon">🌱</div><h3>Activamos</h3><p>Los recursos que ya existen en cada colegio, club, familia o comunidad.</p></article>
+          <article class="card"><div class="card-icon">🤝</div><h3>Conectamos</h3><p>A las personas que cuidan, educan y acompañan a la infancia cada día.</p></article>
+          <article class="card"><div class="card-icon">✨</div><h3>Transformamos</h3><p>Las comunidades desde dentro, creando cultura de bienestar sostenible.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="escenarios" id="escenarios">
+      <div class="container center">
+        <h2 class="section-title">Los cuatro escenarios</h2>
+        <p class="section-subtitle">El bienestar infantil crece cuando los principales contextos de vida del niño trabajan conectados.</p>
+        <div class="circle-layout">
+          <article class="scenario"><h3>Familia</h3><ul><li>Fortalezas</li><li>Comunicación</li><li>Bienestar</li></ul></article>
+          <article class="scenario"><h3>Escuela</h3><ul><li>Aprendizaje</li><li>Atención</li><li>Convivencia</li></ul></article>
+          <div class="center-circle">Bienestar<br>infantil</div>
+          <article class="scenario"><h3>Deporte</h3><ul><li>Liderazgo</li><li>Resiliencia</li><li>Trabajo en equipo</li></ul></article>
+          <article class="scenario"><h3>Comunidad</h3><ul><li>Redes</li><li>Participación</li><li>Salud</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="modelo" id="modelo">
+      <div class="container center">
+        <h2 class="section-title">Nuestro modelo</h2>
+        <p class="section-subtitle">Cinco piezas para acompañar a comunidades que desean cuidar mejor el desarrollo y el bienestar de la infancia.</p>
+        <div class="steps">
+          <article class="step"><div class="step-number">1️⃣</div><h3>Formación</h3><p>Capacitación de familias, docentes, entrenadores y agentes comunitarios.</p></article>
+          <article class="step"><div class="step-number">2️⃣</div><h3>Herramientas</h3><p>Recursos prácticos para aplicar en la vida diaria.</p></article>
+          <article class="step"><div class="step-number">3️⃣</div><h3>Comunidad</h3><p>Creación de redes de colaboración y apoyo mutuo.</p></article>
+          <article class="step"><div class="step-number">4️⃣</div><h3>Evaluación</h3><p>Seguimiento del impacto real en los entornos de infancia.</p></article>
+          <article class="step"><div class="step-number">5️⃣</div><h3>Certificación</h3><p>Reconocimiento de comunidades comprometidas con el bienestar infantil.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="impacto" id="impacto">
+      <div class="container center">
+        <h2 class="section-title">Nuestro impacto</h2>
+        <p class="section-subtitle">No medimos talleres. Medimos transformación.</p>
+        <div class="impact-grid">
+          <div class="impact-item"><div class="impact-icon">👦</div>Bienestar infantil</div>
+          <div class="impact-item"><div class="impact-icon">🏫</div>Clima escolar</div>
+          <div class="impact-item"><div class="impact-icon">🏃</div>Permanencia deportiva</div>
+          <div class="impact-item"><div class="impact-icon">👨‍👩‍👧</div>Competencias familiares</div>
+          <div class="impact-item"><div class="impact-icon">🤝</div>Inclusión</div>
+          <div class="impact-item"><div class="impact-icon">🌍</div>Comunidad</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="participar" id="participar">
+      <div class="container center">
+        <h2 class="section-title">¿Quién puede formar parte?</h2>
+        <p class="section-subtitle">CREO está pensado para todas las personas e instituciones que acompañan el crecimiento de la infancia.</p>
+        <div class="participants">
+          <div class="participant"><span>🏫</span>Colegios</div>
+          <div class="participant"><span>⚽</span>Clubes deportivos</div>
+          <div class="participant"><span>🏛</span>Ayuntamientos</div>
+          <div class="participant"><span>❤️</span>Asociaciones</div>
+          <div class="participant"><span>🏥</span>Centros de salud</div>
+          <div class="participant"><span>👨‍👩‍👧</span>Familias</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="recursos" id="recursos">
+      <div class="container center">
+        <h2 class="section-title">Recursos</h2>
+        <p class="section-subtitle">Una biblioteca viva para compartir conocimiento, herramientas e inspiración.</p>
+        <div class="resource-grid">
+          <article class="resource-card"><h3>Biblioteca</h3><p>Lecturas, referencias y materiales clave sobre bienestar infantil y comunidad.</p></article>
+          <article class="resource-card"><h3>Guías</h3><p>Documentos prácticos para familias, escuelas, clubes y profesionales.</p></article>
+          <article class="resource-card"><h3>Investigación</h3><p>Evidencia científica y trabajos académicos que sostienen el modelo.</p></article>
+          <article class="resource-card"><h3>Materiales</h3><p>Recursos descargables para aplicar en diferentes contextos.</p></article>
+          <article class="resource-card"><h3>Infografías</h3><p>Contenidos visuales para comunicar ideas complejas de forma sencilla.</p></article>
+          <article class="resource-card"><h3>Buenas prácticas</h3><p>Experiencias reales de comunidades que ya están generando cambio.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="comunidad" id="comunidad">
+      <div class="container center">
+        <h2 class="section-title">Comunidad</h2>
+        <p class="section-subtitle">Una red de escuelas, clubes, municipios, familias y profesionales que aprenden juntos.</p>
+        <div class="map-box">
+          <div class="map-placeholder" aria-hidden="true">🗺️</div>
+          <h3>Mapa de la Red CREO</h3>
+          <p>Próximamente podrás consultar las comunidades, centros y profesionales que forman parte de la red.</p>
+          <div class="map-tags"><div class="tag">Escuelas</div><div class="tag">Clubes</div><div class="tag">Municipios</div><div class="tag">Profesionales</div></div>
+          <a class="button dark" href="#contacto">Únete a la Red</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="manifiesto" id="manifiesto">
+      <div class="container">
+        <h2>Creemos que el bienestar infantil no depende únicamente de un programa.</h2>
+        <p>Depende de las personas que acompañan a los niños cada día. Nuestro compromiso es ayudarlas a descubrir que ya tienen el poder de cambiar vidas.</p>
+      </div>
+    </section>
+
+    <section class="equipo" id="equipo">
+      <div class="container center">
+        <h2 class="section-title">Equipo</h2>
+        <p class="section-subtitle">CREO nace de una mirada educativa, comunitaria y preventiva sobre el bienestar infantil.</p>
+        <article class="card">
+          <h3>Roberto Bragado Campano</h3>
+          <p>Profesor de mindfulness, educador e investigador. Desarrolla proyectos orientados al bienestar emocional, la conciencia corporal, el deporte, la educación y la transformación comunitaria.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta-final" id="contacto">
+      <div class="container">
+        <h2>¿Quieres construir una comunidad que haga crecer el bienestar?</h2>
+        <a class="button dark" href="mailto:contacto@creo.org">Contacto</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <div class="footer-logo">CREO</div>
+        <p>Red de comunidades para el bienestar infantil.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#inicio">Inicio</a><a href="#modelo">Modelo</a><a href="#impacto">Impacto</a><a href="#recursos">Recursos</a><a href="#comunidad">Comunidad</a><a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
+# CREO | Website estático
+
+Web estática de una sola página preparada para publicar en GitHub Pages.
+
+## Archivos
+
+- `index.html`: página principal completa con HTML y CSS integrados.
+
+## Publicar en GitHub Pages
+
+1. Crea un repositorio nuevo en GitHub, por ejemplo: `creo-website`.
+2. Sube el archivo `index.html` a la raíz del repositorio.
+3. En GitHub entra en **Settings**.
+4. Ve a **Pages**.
+5. En **Build and deployment**, selecciona:
+   - Source: **Deploy from a branch**
+   - Branch: **main**
+   - Folder: **/root**
+6. Guarda los cambios.
+7. GitHub generará una URL similar a:
+   `https://tuusuario.github.io/creo-website/`
+
+## Personalizar
+
+- Cambia el correo `contacto@creo.org` por tu correo real.
+- Sustituye la imagen principal por una foto propia o una imagen libre de derechos.
+- Puedes cambiar los colores editando las variables CSS dentro de `:root`.
